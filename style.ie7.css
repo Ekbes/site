@@ -1,0 +1,125 @@
+/* Created by Artisteer v4.3.0.60745 */
+
+.ekb-header, #ekb-header-bg, .ekb-layout-cell, .ekb-layout-wrapper, .ekb-footer, .ekb-nav, #ekb-hmenu-bg, .ekb-sheet,
+.clearfix {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+
+.ekb-textblock > div {
+   display: block;
+   line-height: normal;
+   zoom: 1;
+}
+
+.ekb-header
+{
+   z-index: 1;
+   background-image: [headerimage];
+   background-position: [headerposition];
+}
+
+#ekb-header-bg 
+{
+   display: none;
+}
+
+.ekb-hmenu>li, .ekb-hmenu>li>a
+{
+   display: inline !important;
+   zoom: 1;
+   float: none !important;
+   vertical-align: top;
+}
+ul.ekb-hmenu, ul.ekb-hmenu ul {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+#ekb-hmenu-bg 
+{
+   display: none;
+}
+
+ul.ekb-hmenu>li:first-child {
+   padding-right:9px;
+}
+ul.ekb-hmenu>li{
+   zoom:expression(runtimeStyle.zoom=1,insertBefore(document.createElement('span'),firstChild).className='ekb-hmenu-separator');
+}
+ul.ekb-hmenu>li>span.ekb-hmenu-separator
+{
+   position:absolute;
+   display: block;
+   top:0;
+   left:  -9px;
+   width: 9px;
+   height: 31px;
+   background: url('images/menuseparator.png') center center no-repeat;
+}
+ul.ekb-hmenu>li:first-child>span.ekb-hmenu-separator
+{
+   display:none;
+}
+
+ul.ekb-hmenu ul{
+   background-color: #328DBD !important;
+}
+
+.ekb-content-layout, .ekb-content-layout-row, .ekb-layout-cell 
+{
+   display: block;
+   zoom: 1;
+}
+.ekb-layout-cell
+{
+   position:relative;
+   float: left;
+   clear: right;
+}
+
+input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+* html input[type="text"]
+{
+   margin :0;
+}
+
+form.ekb-search>input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+form.ekb-search div>input[type="text"]
+{
+   width: 100%;
+}
+
+* html form.ekb-search>input[type="text"] 
+{
+   margin :0;
+}
+
+form.ekb-search
+{
+   zoom: 1;
+}
+.ekb-postcontent {
+   height: 1%;
+}
+
+.close-alt, .arrow-right-alt, .arrow-left-alt {
+   display: block !important;
+}
+.cw, .ccw {
+   display: none !important;
+}
+
+.ekb-content 
+{
+   width: auto;
+   float:none;
+}
+
