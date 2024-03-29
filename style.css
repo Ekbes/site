@@ -446,32 +446,14 @@ li p, .ekb-postcontent li p, .ekb-blockcontent li p
    margin-right: 0 !important;
 }
 
-.ekb-object1535891862
-{
-    display: block;
-    left: 93.72%;
-    margin-left: -182px;
-    position: absolute;
-    top: 18px;
-    width: 195px;
-    height: 158px;
-    background-image: url('images/object1535891862.png');
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    z-index: 5;
-}
-
-.default-responsive .ekb-object1535891862
-{
-  display: none;
-}.ekb-headline
+.ekb-headline
 {
   display: inline-block;
   position: absolute;
   min-width: 50px;
-  top: 66px;
-  left: 1.23%;
-  margin-left: -1px !important;
+  top: 59px;
+  left: 1.63%;
+  margin-left: -2px !important;
   line-height: 100%;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
@@ -509,7 +491,7 @@ text-shadow: 1.4px 1.4px 0px rgb(255, 255, 255);
 {
    margin:0 auto;
    background-repeat: no-repeat;
-   height: 250px;
+   height: 200px;
    position:relative;
    background-image: url('images/header.jpg');
    background-position: center top;

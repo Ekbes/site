@@ -1209,29 +1209,13 @@ if (typeof window.resizeData === 'undefined') window.resizeData = {};
 window.resizeData.headerPageWidth = true;
 if (typeof window.defaultResponsiveData === 'undefined') window.defaultResponsiveData = [false, true, true, true, true, ];
 
-resizeData['object1535891862'] = {
-   responsive: [
-                  { left: 0.94, top: 0.2, visible: true }, 
-                  { left: 0.94, top: 0.2, visible: true }, 
-                  { left: 0.94, top: 0.2, visible: true }, 
-                  { left: 0.94, top: 0.2, visible: true }, 
-                  { left: 0.94, top: 0.2, visible: true }, 
-               ],
-   area: {
-       x: 0,
-       y: 0
-   },
-   width: 195,
-   height: 158,
-   autoWidth: false};
-
 resizeData['headline'] = {
    responsive: [
-                  { left: 0.01, top: 0.33, visible: true }, 
-                  { left: 0.01, top: 0.33, visible: true }, 
-                  { left: 0.01, top: 0.33, visible: true }, 
-                  { left: 0.01, top: 0.33, visible: true }, 
-                  { left: 0.01, top: 0.33, visible: true }, 
+                  { left: 0.02, top: 0.4, visible: true }, 
+                  { left: 0.02, top: 0.4, visible: true }, 
+                  { left: 0.02, top: 0.4, visible: true }, 
+                  { left: 0.02, top: 0.4, visible: true }, 
+                  { left: 0.02, top: 0.4, visible: true }, 
                ],
    area: {
        x: 0,
