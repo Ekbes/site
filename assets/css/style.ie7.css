@@ -1,0 +1,42 @@
+/* Created by Artisteer v4.3.0.60745 - Adapted for Jekyll - IE7 fixes */
+
+.ekb-header,
+.ekb-layout-cell,
+.ekb-layout-wrapper,
+.ekb-footer,
+.ekb-nav,
+.ekb-sheet,
+.clearfix {
+   zoom: 1;
+}
+
+.ekb-header {
+   z-index: 1;
+   background-image: url('../images/header.jpg');
+   background-position: center top;
+}
+
+.ekb-hmenu>li,
+.ekb-hmenu>li>a {
+   display: inline !important;
+   zoom: 1;
+   float: none !important;
+   vertical-align: top;
+}
+
+.ekb-content-layout,
+.ekb-content-layout-row,
+.ekb-layout-cell {
+   display: block;
+   zoom: 1;
+}
+
+.ekb-layout-cell {
+   position: relative;
+   float: left;
+   clear: right;
+}
+
+.ekb-postcontent {
+   height: 1%;
+}

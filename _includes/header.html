@@ -1,0 +1,39 @@
+<header class="ekb-header">
+    <div class="ekb-shapes"></div>
+
+    <h1 class="ekb-headline">
+        <a href="{{ '/' | relative_url }}">ekbes</a>
+    </h1>
+
+    <nav class="ekb-nav">
+        <div class="ekb-nav-inner">
+            <ul class="ekb-hmenu">
+                <!-- Главная -->
+                <li>
+                    <a href="{{ '/' | relative_url }}" 
+                       {% if page.url == '/' %}class="active"{% endif %}>Главная</a>
+                </li>
+                
+                <!-- Программы (теперь без выпадающего меню) -->
+                <li>
+                    <a href="{{ '/my_programms.html' | relative_url }}" 
+                       {% if page.url contains '/my_programms' or page.url contains '/programs/' %}class="active"{% endif %}>
+                       Программы
+                    </a>
+                </li>
+                
+                <!-- Заметки -->
+                <li>
+                    <a href="{{ '/my_posts.html' | relative_url }}" 
+                       {% if page.url == '/my_posts.html' or page.url contains '/posts/' %}class="active"{% endif %}>Заметки</a>
+                </li>
+                
+                <!-- Контакты -->
+                <li>
+                    <a href="{{ '/my_contacts.html' | relative_url }}" 
+                       {% if page.url == '/my_contacts.html' %}class="active"{% endif %}>Контакты</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

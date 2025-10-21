@@ -1,0 +1,52 @@
+title: "Ekbes"
+description: "Сайт с программами и заметками"
+baseurl: ""
+url: "http://ekbes.ru"
+
+collections:
+  programs:
+    output: true
+    permalink: /my_programms/:path/
+
+# Добавим настройки для автора
+author:
+  name: "Дмитрий Горбатовский"
+  email: "example@ekbes.ru"
+  
+# Настройки для сборки
+markdown: kramdown
+highlighter: rouge
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: "_programs"
+    values:
+      layout: "page"
+  - scope:
+      path: "_posts"
+    values:
+      layout: "post"
+      permalink: /posts/:title/
+
+# Настройки для excerpt (краткого описания)
+excerpt_separator: "<!--more-->"
+      
+# Категории программ для автоматической группировки
+program_categories:
+  games:
+    name: "Игры"
+    programs: ["fly-and-candy", "15birds-puzzle", "15cats-puzzle", "15dogs-puzzle", "15squirrels-puzzle", "samples-radio-signals-database"]
+  kids:
+    name: "Программы для детей" 
+    programs: ["help-to-pee", "helptosleep", "birdsong"]
+  radio:
+    name: "Обработка радиосигналов"
+    programs: ["radio-signals-database"]
+  other:
+    name: "Разное"
+    programs: ["монодиеты", "globus"]
