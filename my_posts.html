@@ -9,7 +9,7 @@ title: "Мои заметки"
             <div class="ekb-content-layout-row">
                 <div class="ekb-layout-cell" style="width: 100%">
                     <h1>Мои заметки</h1>
-                    
+
                     <!-- Автоматический список заметок -->
                     <div class="posts-list">
                         {% for post in site.posts %}
@@ -33,7 +33,9 @@ title: "Мои заметки"
                             </div>
                             <a href="{{ post.url | relative_url }}" class="read-more">Читать далее →</a>
                         </div>
-                        {% unless forloop.last %}<hr>{% endunless %}
+                        {% unless forloop.last %}
+                        <hr>
+                        {% endunless %}
                         {% endfor %}
                     </div>
                 </div>

@@ -46,7 +46,7 @@ program_categories:
     programs: ["help-to-pee", "helptosleep", "birdsong"]
   radio:
     name: "Обработка радиосигналов"
-    programs: ["radio-signals-database"]
+    programs: ["radio-signals-database", "rf-to-if", "if-to-rf", "frequency-calc"]
   other:
     name: "Разное"
-    programs: ["монодиеты", "globus"]
+    programs: ["monodiets", "globus"]

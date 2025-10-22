@@ -1,0 +1,419 @@
+---
+title: "RF → IF преобразователь"
+slug: "rf-to-if"
+category: "radio"
+image: "uncnown-10.png"
+---
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        padding: 30px;
+        max-width: 600px;
+        width: 100%;
+    }
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 24px;
+    }
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+    .params-section {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-left: 4px solid #667eea;
+        position: relative;
+    }
+    .params-section h2 {
+        color: #495057;
+        font-size: 16px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .params-section h2:before {
+        content: "⚙️";
+        margin-right: 8px;
+    }
+    .save-indicator {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 12px;
+        color: #28a745;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .save-indicator.show {
+        opacity: 1;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    .form-row .form-group {
+        flex: 1;
+        margin-bottom: 0;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .params-section label {
+        color: #666;
+        font-size: 13px;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+    .params-section input {
+        background: white;
+        border-color: #e9ecef;
+        font-size: 13px;
+    }
+    .frequency-input {
+        padding: 14px;
+        font-size: 16px;
+        border-color: #667eea;
+        background: #f0f4ff;
+    }
+    input:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+    .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: transform 0.2s;
+        margin-top: 10px;
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+    .btn:active {
+        transform: translateY(0);
+    }
+    .btn-secondary {
+        background: #6c757d;
+        margin-top: 5px;
+    }
+    .result {
+        margin-top: 25px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+        display: none;
+    }
+    .result h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .result-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #28a745;
+        margin: 15px 0;
+        text-align: center;
+    }
+    .formula {
+        background: #e9ecef;
+        padding: 12px;
+        border-radius: 6px;
+        font-family: monospace;
+        margin: 15px 0;
+        font-size: 14px;
+    }
+    .error {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+    }
+    .range-display {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 3px;
+    }
+    .button-row {
+        display: flex;
+        gap: 10px;
+    }
+    .button-row .btn {
+        flex: 1;
+        margin-top: 0;
+    }
+</style>
+
+<br><br><br>
+<div class="container">
+    <h1>RF → IF преобразователь</h1>
+    <div class="subtitle">Преобразование радиочастоты в промежуточную частоту</div>
+
+    <div class="params-section">
+        <h2>Параметры переносчика</h2>
+        <div class="save-indicator" id="saveIndicator">✓ Сохранено</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="rfMin">RF мин (GHz):</label>
+                <input type="number" id="rfMin" step="0.1" value="29.0" required>
+            </div>
+            <div class="form-group">
+                <label for="rfMax">RF макс (GHz):</label>
+                <input type="number" id="rfMax" step="0.1" value="30.0" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="loFreq">LO частота (GHz):</label>
+            <input type="number" id="loFreq" step="0.001" value="28.05" required>
+            <div class="error" id="loError"></div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ifMin">IF мин (MHz):</label>
+                <input type="number" id="ifMin" value="950" required>
+            </div>
+            <div class="form-group">
+                <label for="ifMax">IF макс (MHz):</label>
+                <input type="number" id="ifMax" value="1950" required>
+            </div>
+        </div>
+
+        <div class="button-row">
+            <button type="button" class="btn btn-secondary" id="saveParams">Сохранить параметры</button>
+            <button type="button" class="btn btn-secondary" id="resetParams">Сбросить к R2930I</button>
+        </div>
+    </div>
+
+    <form id="converterForm">
+        <div class="form-group">
+            <label for="rfFreq">RF частота для преобразования (GHz):</label>
+            <input type="number" id="rfFreq" class="frequency-input" step="any" value="29.1" required>
+            <div class="range-display">Можно ввести любую частоту</div>
+            <div class="error" id="rfError"></div>
+        </div>
+
+        <button type="submit" class="btn">Рассчитать IF частоту</button>
+    </form>
+
+    <div class="result" id="result">
+        <h3>Результат преобразования:</h3>
+        <div class="result-value" id="resultValue"></div>
+        <div class="formula" id="formula"></div>
+        <div id="validation"></div>
+    </div>
+</div>
+
+<script>
+    // Ключи для localStorage
+    const STORAGE_KEYS = {
+        RF_MIN: 'rf_to_if_rf_min',
+        RF_MAX: 'rf_to_if_rf_max',
+        LO_FREQ: 'rf_to_if_lo_freq',
+        IF_MIN: 'rf_to_if_if_min',
+        IF_MAX: 'rf_to_if_if_max',
+        RF_FREQ: 'rf_to_if_rf_freq'
+    };
+
+    // Параметры по умолчанию для R2930I
+    const DEFAULT_PARAMS = {
+        rfMin: 29.0,
+        rfMax: 30.0,
+        loFreq: 28.05,
+        ifMin: 950,
+        ifMax: 1950,
+        rfFreq: 29.1
+    };
+
+    // Загрузка параметров из localStorage
+    function loadParams() {
+        const params = { ...DEFAULT_PARAMS };
+
+        for (const key in STORAGE_KEYS) {
+            const storageKey = STORAGE_KEYS[key];
+            const fieldId = storageKey.replace('rf_to_if_', '');
+            const savedValue = localStorage.getItem(storageKey);
+
+            if (savedValue !== null) {
+                params[fieldId] = parseFloat(savedValue);
+            }
+        }
+
+        return params;
+    }
+
+    // Сохранение параметров в localStorage
+    function saveParams() {
+        const params = {
+            rfMin: parseFloat(document.getElementById('rfMin').value),
+            rfMax: parseFloat(document.getElementById('rfMax').value),
+            loFreq: parseFloat(document.getElementById('loFreq').value),
+            ifMin: parseFloat(document.getElementById('ifMin').value),
+            ifMax: parseFloat(document.getElementById('ifMax').value),
+            rfFreq: parseFloat(document.getElementById('rfFreq').value)
+        };
+
+        for (const key in params) {
+            const storageKey = `rf_to_if_${key}`;
+            localStorage.setItem(storageKey, params[key].toString());
+        }
+
+        // Показать индикатор сохранения
+        const indicator = document.getElementById('saveIndicator');
+        indicator.classList.add('show');
+        setTimeout(() => {
+            indicator.classList.remove('show');
+        }, 2000);
+    }
+
+    // Установка параметров по умолчанию
+    function resetToDefault() {
+        for (const key in DEFAULT_PARAMS) {
+            document.getElementById(key).value = DEFAULT_PARAMS[key];
+        }
+        saveParams();
+    }
+
+    // Заполнение формы сохраненными параметрами
+    function populateForm() {
+        const params = loadParams();
+        for (const key in params) {
+            document.getElementById(key).value = params[key];
+        }
+    }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        populateForm();
+
+        // Обработчики для кнопок
+        document.getElementById('saveParams').addEventListener('click', saveParams);
+        document.getElementById('resetParams').addEventListener('click', resetToDefault);
+
+        // Автосохранение при изменении параметров переносчика
+        const paramInputs = ['rfMin', 'rfMax', 'loFreq', 'ifMin', 'ifMax'];
+        paramInputs.forEach(id => {
+            document.getElementById(id).addEventListener('change', saveParams);
+        });
+
+        // Сохранение RF частоты при изменении
+        document.getElementById('rfFreq').addEventListener('change', function() {
+            localStorage.setItem(STORAGE_KEYS.RF_FREQ, this.value);
+        });
+    });
+
+    // Обработчик формы
+    document.getElementById('converterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Получаем значения из формы
+        const rfMin = parseFloat(document.getElementById('rfMin').value);
+        const rfMax = parseFloat(document.getElementById('rfMax').value);
+        const loFreq = parseFloat(document.getElementById('loFreq').value);
+        const ifMin = parseFloat(document.getElementById('ifMin').value);
+        const ifMax = parseFloat(document.getElementById('ifMax').value);
+        const rfFreq = parseFloat(document.getElementById('rfFreq').value);
+
+        // Сбрасываем ошибки
+        document.getElementById('loError').style.display = 'none';
+        document.getElementById('rfError').style.display = 'none';
+
+        let hasError = false;
+
+        // Проверка LO частоты
+        if (loFreq <= 0) {
+            document.getElementById('loError').textContent = 'LO частота должна быть положительной';
+            document.getElementById('loError').style.display = 'block';
+            hasError = true;
+        }
+
+        // Проверка RF частоты
+        if (rfFreq <= 0) {
+            document.getElementById('rfError').textContent = 'RF частота должна быть положительной';
+            document.getElementById('rfError').style.display = 'block';
+            hasError = true;
+        }
+
+        // Проверка диапазона RF (предупреждение, но не ошибка)
+        let rangeWarning = '';
+        if (rfFreq < rfMin || rfFreq > rfMax) {
+            rangeWarning = `<div style="color: #ffc107; font-weight: 500;">⚠ RF частота вне рабочего диапазона ${rfMin}-${rfMax} GHz, но расчет выполнен</div>`;
+        }
+
+        if (hasError) return;
+
+        // Вычисляем IF частоту
+        const ifFreq = Math.abs((rfFreq - loFreq) * 1000);
+        const formula = `IF = |RF - LO| × 1000 = |${rfFreq} - ${loFreq}| × 1000 = ${ifFreq} MHz`;
+
+        // Проверяем попадание в диапазон IF
+        let validationMessage = '';
+        if (ifFreq >= ifMin && ifFreq <= ifMax) {
+            validationMessage = `<div style="color: #28a745; font-weight: 500;">✓ IF частота находится в рабочем диапазоне ${ifMin}-${ifMax} MHz</div>`;
+        } else {
+            validationMessage = `<div style="color: #dc3545; font-weight: 500;">⚠ IF частота вне рабочего диапазона ${ifMin}-${ifMax} MHz</div>`;
+        }
+
+        // Добавляем предупреждение о диапазоне RF, если есть
+        if (rangeWarning) {
+            validationMessage = rangeWarning + validationMessage;
+        }
+
+        // Показываем результат
+        document.getElementById('resultValue').textContent = `${ifFreq.toFixed(2)} MHz`;
+        document.getElementById('formula').textContent = formula;
+        document.getElementById('validation').innerHTML = validationMessage;
+        document.getElementById('result').style.display = 'block';
+    });
+
+    // Автоматическая проверка при изменении RF частоты (только визуальная)
+    document.getElementById('rfFreq').addEventListener('change', function() {
+        const rfFreq = parseFloat(this.value);
+        const rfMin = parseFloat(document.getElementById('rfMin').value);
+        const rfMax = parseFloat(document.getElementById('rfMax').value);
+
+        if (rfFreq < rfMin || rfFreq > rfMax) {
+            this.style.borderColor = '#ffc107'; // Желтый для предупреждения
+        } else {
+            this.style.borderColor = '#667eea';
+        }
+    });
+</script>
