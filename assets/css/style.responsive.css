@@ -146,10 +146,6 @@
         display: block !important;
     }
 
-    .ekb-sidebar1 {
-        width: 100% !important;
-    }
-
     .ekb-content {
         width: 100% !important;
     }
@@ -382,6 +378,23 @@
 
     .ekb-content-layout-row {
         padding: 0;
+    }
+
+    .ekb-sidebar1 {
+        width: 100% !important;
+        background-color: #f8f9fa;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+        padding: 10px;
+    }
+
+    .ekb-sidebar1 .ekb-block {
+        margin: 15px 0;
+        max-width: none;
+    }
+
+    .ekb-sidebar1 .ekb-blockheader {
+        padding: 8px;
     }
 }
 

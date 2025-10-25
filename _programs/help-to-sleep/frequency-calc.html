@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор частоты платы ЦОС</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .params-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #4ecdc4;
+            position: relative;
+        }
+        .params-section h2 {
+            color: #495057;
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .params-section h2:before {
+            content: "⚙️";
+            margin-right: 8px;
+        }
+        .save-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 12px;
+            color: #28a745;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .save-indicator.show {
+            opacity: 1;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .params-section label {
+            color: #666;
+            font-size: 13px;
+        }
+        .input-with-unit {
+            display: flex;
+            gap: 10px;
+        }
+        .input-with-unit input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        .input-with-unit select {
+            width: 80px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.3s;
+        }
+        .frequency-input {
+            border-color: #4ecdc4;
+            background: #f0f9ff;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4ecdc4;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            transform: scale(1.2);
+        }
+        .btn {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn-secondary {
+            background: #6c757d;
+            margin-top: 5px;
+        }
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+        .result h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .result-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #28a745;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .formula {
+            background: #e9ecef;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .nav-links {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .nav-links a {
+            color: #4ecdc4;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .range-display {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 3px;
+        }
+        .button-row {
+            display: flex;
+            gap: 10px;
+        }
+        .button-row .btn {
+            flex: 1;
+            margin-top: 0;
+        }
+        .unit-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .unit-btn {
+            flex: 1;
+            padding: 8px;
+            background: #e9ecef;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+        .unit-btn.active {
+            background: #f8f9fa;
+            border-color: #4ecdc4;
+            color: #4ecdc4;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Калькулятор частоты платы ЦОС</h1>
+        <div class="subtitle">Расчёт частоты настройки платы цифровой обработки сигнала</div>
+        
+        <div class="params-section">
+            <h2>Параметры</h2>
+            <div class="save-indicator" id="saveIndicator">✓ Сохранено</div>
+            
+            <div class="form-group">
+                <label for="ifFreqValue">Промежуточная частота платы (ПЧ):</label>
+                <div class="input-with-unit">
+                    <input type="number" id="ifFreqValue" step="any" value="70" required>
+                    <select id="ifFreqUnit">
+                        <option value="GHz">GHz</option>
+                        <option value="MHz" selected>MHz</option>
+                        <option value="kHz">kHz</option>
+                        <option value="Hz">Hz</option>
+                    </select>
+                </div>
+                <div class="error" id="ifError"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="rpuFreqValue">Частота РПУ (LO):</label>
+                <div class="input-with-unit">
+                    <input type="number" id="rpuFreqValue" step="any" value="145" required>
+                    <select id="rpuFreqUnit">
+                        <option value="GHz">GHz</option>
+                        <option value="MHz" selected>MHz</option>
+                        <option value="kHz">kHz</option>
+                        <option value="Hz">Hz</option>
+                    </select>
+                </div>
+                <div class="error" id="rpuError"></div>
+            </div>
+            
+            <div class="form-group">
+                <label>Инверсия приёмника:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="inversion">
+                    <label for="inversion" style="margin-bottom: 0;">Включить инверсию</label>
+                </div>
+            </div>
+            
+            <div class="button-row">
+                <button type="button" class="btn btn-secondary" id="saveParams">Сохранить параметры</button>
+                <button type="button" class="btn btn-secondary" id="resetParams">Сбросить по умолчанию</button>
+            </div>
+        </div>
+        
+        <form id="converterForm">
+            <div class="form-group">
+                <label for="signalFreqValue">Частота сигнала в эфире:</label>
+                <div class="input-with-unit">
+                    <input type="number" id="signalFreqValue" class="frequency-input" step="any" value="145.5" required>
+                    <select id="signalFreqUnit">
+                        <option value="GHz">GHz</option>
+                        <option value="MHz" selected>MHz</option>
+                        <option value="kHz">kHz</option>
+                        <option value="Hz">Hz</option>
+                    </select>
+                </div>
+                <div class="range-display">Можно ввести любую частоту</div>
+                <div class="error" id="signalError"></div>
+            </div>
+            
+            <button type="submit" class="btn">Рассчитать частоту платы ЦОС</button>
+        </form>
+        
+        <div class="result" id="result">
+            <h3>Результат расчёта:</h3>
+            <div class="result-value" id="resultValue"></div>
+            <div class="formula" id="formula"></div>
+            <div id="validation"></div>
+            
+            <div class="form-group">
+                <label>Формат отображения результата:</label>
+                <div class="unit-selector">
+                    <div class="unit-btn active" id="unitAuto">Авто</div>
+                    <div class="unit-btn" id="unitGHz">GHz</div>
+                    <div class="unit-btn" id="unitMHz">MHz</div>
+                    <div class="unit-btn" id="unitKHz">kHz</div>
+                    <div class="unit-btn" id="unitHz">Hz</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="rf-to-if.html">RF → IF преобразователь</a>
+            <a href="if-to-rf.html">IF → RF преобразователь</a>
+        </div>
+    </div>
+
+    <script>
+        // Ключи для localStorage
+        const STORAGE_KEYS = {
+            IF_FREQ_VALUE: 'dsp_if_freq_value',
+            IF_FREQ_UNIT: 'dsp_if_freq_unit',
+            RPU_FREQ_VALUE: 'dsp_rpu_freq_value',
+            RPU_FREQ_UNIT: 'dsp_rpu_freq_unit',
+            SIGNAL_FREQ_VALUE: 'dsp_signal_freq_value',
+            SIGNAL_FREQ_UNIT: 'dsp_signal_freq_unit',
+            INVERSION: 'dsp_inversion',
+            RESULT_UNIT: 'dsp_result_unit'
+        };
+
+        // Параметры по умолчанию
+        const DEFAULT_PARAMS = {
+            ifFreqValue: 70,
+            ifFreqUnit: 'MHz',
+            rpuFreqValue: 145,
+            rpuFreqUnit: 'MHz',
+            signalFreqValue: 145.5,
+            signalFreqUnit: 'MHz',
+            inversion: false,
+            resultUnit: 'auto'
+        };
+
+        let resultUnit = DEFAULT_PARAMS.resultUnit;
+
+        // Функции для преобразования частот
+        function toHz(value, unit) {
+            switch(unit) {
+                case 'GHz': return value * 1e9;
+                case 'MHz': return value * 1e6;
+                case 'kHz': return value * 1e3;
+                case 'Hz': return value;
+                default: return value;
+            }
+        }
+
+        function fromHz(valueHz, unit) {
+            switch(unit) {
+                case 'GHz': return valueHz / 1e9;
+                case 'MHz': return valueHz / 1e6;
+                case 'kHz': return valueHz / 1e3;
+                case 'Hz': return valueHz;
+                default: return valueHz;
+            }
+        }
+
+        function formatFrequency(hz, unit = 'auto') {
+            if (unit === 'auto') {
+                if (hz >= 1e9) return `${(hz / 1e9).toFixed(6)} GHz`;
+                if (hz >= 1e6) return `${(hz / 1e6).toFixed(6)} MHz`;
+                if (hz >= 1e3) return `${(hz / 1e3).toFixed(3)} kHz`;
+                return `${hz} Hz`;
+            }
+            
+            switch(unit) {
+                case 'GHz': return `${(hz / 1e9).toFixed(9)} GHz`;
+                case 'MHz': return `${(hz / 1e6).toFixed(6)} MHz`;
+                case 'kHz': return `${(hz / 1e3).toFixed(3)} kHz`;
+                case 'Hz': return `${hz} Hz`;
+                default: return formatFrequency(hz, 'auto');
+            }
+        }
+
+        // Функция для обновления значения при смене единиц измерения
+        function updateFrequencyOnUnitChange(valueInputId, unitSelectId) {
+            const valueInput = document.getElementById(valueInputId);
+            const unitSelect = document.getElementById(unitSelectId);
+            
+            // Сохраняем текущее значение при загрузке
+            let currentValueHz = toHz(
+                parseFloat(valueInput.value) || 0,
+                unitSelect.value
+            );
+            
+            // Обновляем значение при смене единиц
+            unitSelect.addEventListener('change', function() {
+                const newUnit = this.value;
+                const newValue = fromHz(currentValueHz, newUnit);
+                valueInput.value = newValue;
+                
+                // Обновляем сохраненное значение в Hz
+                currentValueHz = toHz(newValue, newUnit);
+                
+                // Сохраняем изменения
+                saveParams();
+            });
+            
+            // Также обновляем сохраненное значение при изменении поля ввода
+            valueInput.addEventListener('input', function() {
+                currentValueHz = toHz(
+                    parseFloat(this.value) || 0,
+                    unitSelect.value
+                );
+            });
+        }
+
+        // Загрузка параметров из localStorage
+        function loadParams() {
+            const params = { ...DEFAULT_PARAMS };
+            
+            // Загрузка значений и единиц измерения
+            const valueKeys = ['ifFreqValue', 'rpuFreqValue', 'signalFreqValue'];
+            const unitKeys = ['ifFreqUnit', 'rpuFreqUnit', 'signalFreqUnit'];
+            
+            valueKeys.forEach(key => {
+                const savedValue = localStorage.getItem(STORAGE_KEYS[key.toUpperCase()]);
+                if (savedValue !== null) {
+                    params[key] = parseFloat(savedValue);
+                }
+            });
+            
+            unitKeys.forEach(key => {
+                const savedUnit = localStorage.getItem(STORAGE_KEYS[key.toUpperCase()]);
+                if (savedUnit !== null) {
+                    params[key] = savedUnit;
+                }
+            });
+            
+            // Загрузка инверсии
+            const savedInversion = localStorage.getItem(STORAGE_KEYS.INVERSION);
+            if (savedInversion !== null) {
+                params.inversion = savedInversion === 'true';
+            }
+            
+            // Загрузка единиц измерения результата
+            const savedUnit = localStorage.getItem(STORAGE_KEYS.RESULT_UNIT);
+            if (savedUnit !== null) {
+                params.resultUnit = savedUnit;
+            }
+            
+            return params;
+        }
+
+        // Сохранение параметров в localStorage
+        function saveParams() {
+            const params = {
+                ifFreqValue: parseFloat(document.getElementById('ifFreqValue').value),
+                ifFreqUnit: document.getElementById('ifFreqUnit').value,
+                rpuFreqValue: parseFloat(document.getElementById('rpuFreqValue').value),
+                rpuFreqUnit: document.getElementById('rpuFreqUnit').value,
+                signalFreqValue: parseFloat(document.getElementById('signalFreqValue').value),
+                signalFreqUnit: document.getElementById('signalFreqUnit').value,
+                inversion: document.getElementById('inversion').checked
+            };
+            
+            // Сохранение значений и единиц измерения
+            for (const key in params) {
+                const storageKey = `dsp_${key}`;
+                localStorage.setItem(storageKey, params[key].toString());
+            }
+            
+            // Сохранение единиц измерения результата
+            localStorage.setItem(STORAGE_KEYS.RESULT_UNIT, resultUnit);
+            
+            // Показать индикатор сохранения
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        // Установка параметров по умолчанию
+        function resetToDefault() {
+            document.getElementById('ifFreqValue').value = DEFAULT_PARAMS.ifFreqValue;
+            document.getElementById('ifFreqUnit').value = DEFAULT_PARAMS.ifFreqUnit;
+            document.getElementById('rpuFreqValue').value = DEFAULT_PARAMS.rpuFreqValue;
+            document.getElementById('rpuFreqUnit').value = DEFAULT_PARAMS.rpuFreqUnit;
+            document.getElementById('signalFreqValue').value = DEFAULT_PARAMS.signalFreqValue;
+            document.getElementById('signalFreqUnit').value = DEFAULT_PARAMS.signalFreqUnit;
+            document.getElementById('inversion').checked = DEFAULT_PARAMS.inversion;
+            
+            // Сброс единиц измерения
+            resultUnit = DEFAULT_PARAMS.resultUnit;
+            updateUnitUI();
+            
+            saveParams();
+        }
+
+        // Обновление UI единиц измерения
+        function updateUnitUI() {
+            document.getElementById('unitAuto').classList.toggle('active', resultUnit === 'auto');
+            document.getElementById('unitGHz').classList.toggle('active', resultUnit === 'GHz');
+            document.getElementById('unitMHz').classList.toggle('active', resultUnit === 'MHz');
+            document.getElementById('unitKHz').classList.toggle('active', resultUnit === 'kHz');
+            document.getElementById('unitHz').classList.toggle('active', resultUnit === 'Hz');
+        }
+
+        // Заполнение формы сохраненными параметрами
+        function populateForm() {
+            const params = loadParams();
+            
+            document.getElementById('ifFreqValue').value = params.ifFreqValue;
+            document.getElementById('ifFreqUnit').value = params.ifFreqUnit;
+            document.getElementById('rpuFreqValue').value = params.rpuFreqValue;
+            document.getElementById('rpuFreqUnit').value = params.rpuFreqUnit;
+            document.getElementById('signalFreqValue').value = params.signalFreqValue;
+            document.getElementById('signalFreqUnit').value = params.signalFreqUnit;
+            document.getElementById('inversion').checked = params.inversion;
+            
+            // Установка единиц измерения
+            resultUnit = params.resultUnit;
+            updateUnitUI();
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            populateForm();
+            
+            // Настройка обработчиков для обновления значений при смене единиц
+            updateFrequencyOnUnitChange('ifFreqValue', 'ifFreqUnit');
+            updateFrequencyOnUnitChange('rpuFreqValue', 'rpuFreqUnit');
+            updateFrequencyOnUnitChange('signalFreqValue', 'signalFreqUnit');
+            
+            // Обработчики для кнопок
+            document.getElementById('saveParams').addEventListener('click', saveParams);
+            document.getElementById('resetParams').addEventListener('click', resetToDefault);
+            
+            // Обработчики для единиц измерения результата
+            document.getElementById('unitAuto').addEventListener('click', function() {
+                resultUnit = 'auto';
+                updateUnitUI();
+                saveParams();
+                // Пересчитать результат, если он уже отображен
+                if (document.getElementById('result').style.display !== 'none') {
+                    document.getElementById('converterForm').dispatchEvent(new Event('submit'));
+                }
+            });
+            
+            document.getElementById('unitGHz').addEventListener('click', function() {
+                resultUnit = 'GHz';
+                updateUnitUI();
+                saveParams();
+                if (document.getElementById('result').style.display !== 'none') {
+                    document.getElementById('converterForm').dispatchEvent(new Event('submit'));
+                }
+            });
+            
+            document.getElementById('unitMHz').addEventListener('click', function() {
+                resultUnit = 'MHz';
+                updateUnitUI();
+                saveParams();
+                if (document.getElementById('result').style.display !== 'none') {
+                    document.getElementById('converterForm').dispatchEvent(new Event('submit'));
+                }
+            });
+            
+            document.getElementById('unitKHz').addEventListener('click', function() {
+                resultUnit = 'kHz';
+                updateUnitUI();
+                saveParams();
+                if (document.getElementById('result').style.display !== 'none') {
+                    document.getElementById('converterForm').dispatchEvent(new Event('submit'));
+                }
+            });
+            
+            document.getElementById('unitHz').addEventListener('click', function() {
+                resultUnit = 'Hz';
+                updateUnitUI();
+                saveParams();
+                if (document.getElementById('result').style.display !== 'none') {
+                    document.getElementById('converterForm').dispatchEvent(new Event('submit'));
+                }
+            });
+            
+            // Автосохранение при изменении параметров приёмника
+            const paramInputs = [
+                'ifFreqValue', 'ifFreqUnit',
+                'rpuFreqValue', 'rpuFreqUnit',
+                'inversion'
+            ];
+            
+            paramInputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element.type === 'checkbox') {
+                    element.addEventListener('change', saveParams);
+                } else {
+                    element.addEventListener('change', saveParams);
+                }
+            });
+            
+            // Сохранение частоты сигнала при изменении
+            const signalInputs = ['signalFreqValue', 'signalFreqUnit'];
+            signalInputs.forEach(id => {
+                document.getElementById(id).addEventListener('change', function() {
+                    saveParams();
+                });
+            });
+        });
+
+        // Обработчик формы
+        document.getElementById('converterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Получаем значения из формы (в Hz)
+            const ifFreqHz = toHz(
+                parseFloat(document.getElementById('ifFreqValue').value) || 0,
+                document.getElementById('ifFreqUnit').value
+            );
+            
+            const rpuFreqHz = toHz(
+                parseFloat(document.getElementById('rpuFreqValue').value) || 0,
+                document.getElementById('rpuFreqUnit').value
+            );
+            
+            const signalFreqHz = toHz(
+                parseFloat(document.getElementById('signalFreqValue').value) || 0,
+                document.getElementById('signalFreqUnit').value
+            );
+            
+            const inversion = document.getElementById('inversion').checked;
+            
+            // Сбрасываем ошибки
+            document.getElementById('ifError').style.display = 'none';
+            document.getElementById('rpuError').style.display = 'none';
+            document.getElementById('signalError').style.display = 'none';
+            
+            let hasError = false;
+            
+            // Проверка промежуточной частоты
+            if (ifFreqHz <= 0) {
+                document.getElementById('ifError').textContent = 'Промежуточная частота должна быть положительной';
+                document.getElementById('ifError').style.display = 'block';
+                hasError = true;
+            }
+            
+            // Проверка частоты гетеродина
+            if (rpuFreqHz <= 0) {
+                document.getElementById('rpuError').textContent = 'Частота гетеродина должна быть положительной';
+                document.getElementById('rpuError').style.display = 'block';
+                hasError = true;
+            }
+            
+            // Проверка частоты сигнала
+            if (signalFreqHz <= 0) {
+                document.getElementById('signalError').textContent = 'Частота сигнала должна быть положительной';
+                document.getElementById('signalError').style.display = 'block';
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            // Вычисляем новую частоту
+            const inv = inversion ? 1 : -1;
+            const newFrequencyHz = ifFreqHz + inv * (rpuFreqHz - signalFreqHz);
+            
+            // Форматируем результат
+            const resultValue = formatFrequency(newFrequencyHz, resultUnit);
+            
+            // Формируем формулу
+            const invSymbol = inversion ? '+' : '-';
+            const invText = inversion ? 'с инверсией' : 'без инверсии';
+            const formula = `Fцос = ПЧ ${invSymbol} (Fгет - Fсигн) = ${formatFrequency(ifFreqHz, 'auto')} ${invSymbol} (${formatFrequency(rpuFreqHz, 'auto')} - ${formatFrequency(signalFreqHz, 'auto')}) = ${formatFrequency(newFrequencyHz, 'auto')}`;
+            
+            // Проверяем корректность результата
+            let validationMessage = '';
+            if (newFrequencyHz <= 0) {
+                validationMessage = `<div style="color: #dc3545; font-weight: 500;">⚠ Рассчитанная частота отрицательная или нулевая - проверьте параметры</div>`;
+            } else if (newFrequencyHz > 1e12) {
+                validationMessage = `<div style="color: #ffc107; font-weight: 500;">⚠ Рассчитанная частота очень высокая - проверьте параметры</div>`;
+            } else {
+                validationMessage = `<div style="color: #28a745; font-weight: 500;">✓ Частота рассчитана успешно (${invText})</div>`;
+            }
+            
+            // Показываем результат
+            document.getElementById('resultValue').textContent = resultValue;
+            document.getElementById('formula').textContent = formula;
+            document.getElementById('validation').innerHTML = validationMessage;
+            document.getElementById('result').style.display = 'block';
+        });
+
+        // Автоматическая проверка при изменении частоты сигнала
+        document.getElementById('signalFreqValue').addEventListener('change', function() {
+            const signalFreqHz = toHz(
+                parseFloat(this.value) || 0,
+                document.getElementById('signalFreqUnit').value
+            );
+            
+            if (signalFreqHz <= 0) {
+                this.style.borderColor = '#dc3545';
+            } else {
+                this.style.borderColor = '#4ecdc4';
+            }
+        });
+    </script>
+</body>
+</html>

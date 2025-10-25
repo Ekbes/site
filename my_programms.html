@@ -9,36 +9,29 @@ title: "Мои программы"
             <div class="ekb-content-layout-row">
                 <div class="ekb-layout-cell" style="width: 100%">
                     <h1>Мои программы</h1>
-
                     <br><br>
                     <!-- Автоматическая генерация по категориям -->
                     {% for category in site.program_categories %}
                     <div class="program-category">
                         <h2>{{ category[1].name }}</h2>
-                        <div class="ekb-content-layout">
-                            <div class="ekb-content-layout-row">
-                                {% for program_slug in category[1].programs %}
-                                {% assign program = site.programs | where: "slug", program_slug | first %}
-                                {% if program %}
-                                <div class="ekb-layout-cell" style="width: 25%">
-                                    <a href="{{ program.url | relative_url }}" class="program-card"
-                                       aria-label="Перейти к программе {{ program.title }}"
-                                       itemscope itemtype="http://schema.org/SoftwareApplication">
-                                        <div class="program-image">
-                                            <img width="126" height="126" alt="{{ program.title }}"
-                                                 src="{{ '/assets/images/' | relative_url | append: program.image }}"
-                                                 itemprop="image">
-                                        </div>
-                                        <h3 itemprop="name">{{ program.title }}</h3>
-                                        {% if program.description %}
-                                        <p class="program-description" itemprop="description">{{ program.description
-                                            }}</p>
-                                        {% endif %}
-                                    </a>
-                                </div>
-                                {% endif %}
-                                {% endfor %}
+                        <div class="programs-grid">
+                            {% for program_slug in category[1].programs %}
+                            {% assign program = site.programs | where: "slug", program_slug | first %}
+                            {% if program %}
+                            <div class="program-card-wrapper">
+                                <a href="{{ program.url | relative_url }}" class="program-card">
+                                    <div class="program-image">
+                                        <img width="126" height="126" alt="{{ program.title }}"
+                                             src="{{ '/assets/images/' | relative_url | append: program.image }}">
+                                    </div>
+                                    <h3>{{ program.title }}</h3>
+                                    {% if program.description %}
+                                    <p class="program-description">{{ program.description }}</p>
+                                    {% endif %}
+                                </a>
                             </div>
+                            {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     {% endfor %}

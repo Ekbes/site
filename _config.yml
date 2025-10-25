@@ -40,13 +40,13 @@ excerpt_separator: "<!--more-->"
 program_categories:
   games:
     name: "Игры"
-    programs: ["fly-and-candy", "15birds-puzzle", "15cats-puzzle", "15dogs-puzzle", "15squirrels-puzzle", "samples-radio-signals-database"]
+    programs: ["fly-and-candy", "15birds-puzzle", "15cats-puzzle", "15dogs-puzzle", "15squirrels-puzzle", "wartankcommander"]
   kids:
     name: "Программы для детей" 
-    programs: ["help-to-pee", "helptosleep", "birdsong"]
+    programs: ["help-to-pee", "help-to-sleep", "birdsong"]
   radio:
     name: "Обработка радиосигналов"
-    programs: ["radio-signals-database", "rf-to-if", "if-to-rf", "frequency-calc"]
+    programs: ["radio-signals-database", "rf-to-if", "if-to-rf", "frequency-calc", "phviewer2", "phutils", "sx-plus", "bx-plus"]
   other:
     name: "Разное"
-    programs: ["monodiets", "globus"]
+    programs: ["monodiets", "globus", "live-control", "qt-plus-sql", "sas2osm", "tcp-loger", "chrome-history"]

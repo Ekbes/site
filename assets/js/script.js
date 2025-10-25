@@ -1480,14 +1480,14 @@ if (typeof window.resizeData === 'undefined') window.resizeData = {};
 
 window.resizeData.pageSliderPageWidth = false;
 
-// Улучшение UX для кликабельных карточек
+// Улучшение UX для карточек программ
 jQuery(function ($) {
     "use strict";
-    
+
     // Добавляем обработчики для карточек программ
     $('.program-card').each(function () {
         var card = $(this);
-        
+
         // Эффект при наведении
         card.hover(
             function () {
@@ -1497,27 +1497,27 @@ jQuery(function ($) {
                 $(this).removeClass('hover-active');
             }
         );
-        
+
         // Эффект при клике
         card.mousedown(function () {
             $(this).addClass('click-active');
         });
-        
+
         card.mouseup(function () {
             $(this).removeClass('click-active');
         });
-        
+
         card.mouseleave(function () {
             $(this).removeClass('click-active');
         });
-    });
-    
-    // Обработка клавиатуры для доступности
-    $('.program-card').on('keypress', function (e) {
-        if (e.which === 13 || e.which === 32) { // Enter или Space
-            e.preventDefault();
-            window.location.href = $(this).attr('href');
-        }
+
+        // Обработка клавиатуры для доступности
+        card.on('keypress', function (e) {
+            if (e.which === 13 || e.which === 32) { // Enter или Space
+                e.preventDefault();
+                window.location.href = $(this).attr('href');
+            }
+        });
     });
 });
 
