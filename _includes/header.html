@@ -11,7 +11,7 @@
                 <!-- Главная -->
                 <li>
                     <a href="{{ '/' | relative_url }}"
-                       {% if page.url== '/' %}class="active"{% endif %}>Главная</a>
+                       {% if page.url== '/' %}class="active"{% endif %}>Мой сайт</a>
                 </li>
 
                 <!-- Программы (теперь без выпадающего меню) -->
@@ -19,7 +19,7 @@
                     <a href="{{ '/my_programms.html' | relative_url }}"
                        {% if page.url contains '/my_programms' or page.url contains '/programs/' %}class="active"{%
                     endif %}>
-                    Программы
+                    Мои программы
                     </a>
                 </li>
 
@@ -27,13 +27,13 @@
                 <li>
                     <a href="{{ '/my_posts.html' | relative_url }}"
                        {% if page.url== '/my_posts.html' or page.url contains '/posts/' %}class="active"{% endif
-                    %}>Заметки</a>
+                    %}>Мои заметки</a>
                 </li>
 
                 <!-- Контакты -->
                 <li>
                     <a href="{{ '/my_contacts.html' | relative_url }}"
-                       {% if page.url== '/my_contacts.html' %}class="active"{% endif %}>Контакты</a>
+                       {% if page.url== '/my_contacts.html' %}class="active"{% endif %}>Мои контакты</a>
                 </li>
             </ul>
         </div>

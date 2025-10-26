@@ -1,0 +1,62 @@
+---
+layout: default
+---
+
+<article class="ekb-post ekb-article">
+    <div class="ekb-postcontent ekb-postcontent-0 clearfix">
+        <!-- Баннер программы -->
+        <div class="program-banner-container">
+            <img src="{{ page.banner | relative_url }}" alt="{{ page.title }}" class="program-banner">
+        </div>
+
+        <!-- Заголовок и метаданные -->
+        <div class="ekb-content-layout">
+            <div class="ekb-content-layout-row">
+                <div class="ekb-layout-cell" style="width: 100%">
+                    <h1>{{ page.title }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Описание программы -->
+        <div class="program-description-content">
+            {{ content }}
+        </div>
+
+        <!-- Скриншоты программы -->
+        <div class="program-screenshots">
+            <h2>Скриншоты программы</h2>
+            <div class="screenshots-grid">
+                {% for screenshot in page.screenshots %}
+                <div class="screenshot-item">
+                    <img src="{{ screenshot.thumb | relative_url }}"
+                         data-full="{{ screenshot.full | relative_url }}"
+                         alt="Скриншот {{ forloop.index }} программы {{ page.title }}"
+                         class="screenshot-thumb">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Ссылки для загрузки и документации -->
+        <div class="program-links">
+            <a href="{{ page.download_link }}" class="program-download-link">Скачать программу</a>
+            <div class="documentation-links">
+                <a href="{{ page.privacy_policy_link }}">Privacy Policy</a>
+                <a href="{{ page.terms_conditions_link }}">Terms & Conditions</a>
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- Модальное окно для просмотра скриншотов -->
+<div id="screenshot-modal" class="modal">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modal-image" src="" alt="">
+        <div class="modal-nav">
+            <button class="nav-button prev-button">&#10094;</button>
+            <button class="nav-button next-button">&#10095;</button>
+        </div>
+    </div>
+</div>

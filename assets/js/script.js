@@ -1521,52 +1521,6 @@ jQuery(function ($) {
     });
 });
 
-// Упрощенное мобильное меню
-jQuery(function($) {
-    "use strict";
-    
-    // Создаем кнопку мобильного меню
-    var menuButton = $('<a href=\"#\" class=\"ekb-menu-btn\"><span></span><span></span><span></span></a>');
-    
-    // Вставляем кнопку перед меню
-    menuButton.insertBefore(".ekb-hmenu");
-    
-    // Обработчик клика по кнопке меню
-    menuButton.click(function(e) {
-        var menu = $(this).next('.ekb-hmenu');
-        if (menu.is(":visible")) {
-            menu.slideUp("fast", function() {
-                $(this).removeClass("visible").css("display", "");
-            });
-        } else {
-            menu.slideDown("fast", function() {
-                $(this).addClass("visible").css("display", "");
-            });
-        }
-        e.preventDefault();
-    });
-    
-    // Закрываем меню при клике вне его области (только для мобильных)
-    $(document).on('click', function(e) {
-        if ($(window).width() <= 823) {
-            if (!$(e.target).closest('.ekb-nav').length) {
-                $('.ekb-hmenu').slideUp().removeClass('visible');
-            }
-        }
-    });
-    
-    // Обработчик ресайза для переключения поведения меню
-    $(window).resize(function() {
-        if ($(window).width() > 823) {
-            // На десктопе показываем меню
-            $('.ekb-hmenu').css('display', '');
-        } else {
-            // На мобильных скрываем меню
-            $('.ekb-hmenu').css('display', 'none');
-        }
-    });
-});
-
 // Улучшение UX для карточек главной страницы
 jQuery(function ($) {
     "use strict";
@@ -1605,5 +1559,90 @@ jQuery(function ($) {
                 window.location.href = $(this).attr('href');
             }
         });
+    });
+});
+
+// Модальное окно для скриншотов программ
+jQuery(function ($) {
+    "use strict";
+
+    var modal = $('#screenshot-modal');
+    var modalImg = $('#modal-image');
+    var closeBtn = $('.modal-close');
+    var prevBtn = $('.prev-button');
+    var nextBtn = $('.next-button');
+    var screenshotItems = $('.screenshot-item');
+    var currentIndex = 0;
+
+    // Открытие модального окна
+    $('.screenshot-thumb').click(function () {
+        var thumb = $(this);
+        var fullSrc = thumb.data('full');
+
+        modalImg.attr('src', fullSrc);
+        modal.fadeIn(300);
+
+        // Находим индекс текущего скриншота
+        currentIndex = thumb.closest('.screenshot-item').index();
+
+        // Блокируем прокрутку body
+        $('body').css('overflow', 'hidden');
+    });
+
+    // Закрытие модального окна
+    function closeModal() {
+        modal.fadeOut(300);
+        $('body').css('overflow', 'auto');
+    }
+
+    closeBtn.click(closeModal);
+
+    // Закрытие по клику вне изображения
+    modal.click(function (e) {
+        if ($(e.target).is(modal)) {
+            closeModal();
+        }
+    });
+
+    // Закрытие по ESC
+    $(document).keyup(function (e) {
+        if (e.keyCode === 27) { // ESC
+            closeModal();
+        }
+    });
+
+    // Навигация между скриншотами
+    function showScreenshot(index) {
+        if (index < 0) {
+            index = screenshotItems.length - 1;
+        } else if (index >= screenshotItems.length) {
+            index = 0;
+        }
+
+        currentIndex = index;
+        var fullSrc = $(screenshotItems[currentIndex]).find('.screenshot-thumb').data('full');
+        modalImg.attr('src', fullSrc);
+    }
+
+    prevBtn.click(function (e) {
+        e.stopPropagation();
+        showScreenshot(currentIndex - 1);
+    });
+
+    nextBtn.click(function (e) {
+        e.stopPropagation();
+        showScreenshot(currentIndex + 1);
+    });
+
+    // Навигация стрелками клавиатуры
+    $(document).keyup(function (e) {
+        if (modal.is(':visible')) {
+            e.preventDefault();
+            if (e.keyCode === 37) { // Стрелка влево
+                showScreenshot(currentIndex - 1);
+            } else if (e.keyCode === 39) { // Стрелка вправо
+                showScreenshot(currentIndex + 1);
+            }
+        }
     });
 });
