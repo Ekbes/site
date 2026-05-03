@@ -2,7 +2,7 @@
 layout: program
 title: "15:Dogs Puzzle"
 category: "games"
-image: "uncnown-10.png"
+image: "uncnown.png"
 slug: 15dogs-puzzle
 banner: /assets/images/fly-and-candy/banner.jpg
 screenshots:
@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
     full: /assets/images/fly-and-candy/screenshot4-full.png
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.cats15"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/programs/15dogs-puzzle/privacy-policy"
+terms_conditions_link: "/programs/15dogs-puzzle/terms-conditions"
 ---
 
 ## Описание игры

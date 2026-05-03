@@ -2,21 +2,21 @@
 layout: program
 title: "15:Birds Puzzle"
 category: "games"
-image: "uncnown-10.png"
+image: "uncnown.png"
 slug: 15birds-puzzle
-banner: /assets/images/fly-and-candy/banner.jpg
+banner: /assets/images/15birds-puzzle/banner.jpg
 screenshots:
-  - thumb: /assets/images/fly-and-candy/screenshot1-thumb.png
-    full: /assets/images/fly-and-candy/screenshot1-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot2-thumb.png
-    full: /assets/images/fly-and-candy/screenshot2-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot3-thumb.png
-    full: /assets/images/fly-and-candy/screenshot3-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
-    full: /assets/images/fly-and-candy/screenshot4-full.png
+  - thumb: /assets/images/15birds-puzzle/screenshot1-thumb.jpg
+    full: /assets/images/15birds-puzzle/screenshot1-full.jpg
+  - thumb: /assets/images/15birds-puzzle/screenshot2-thumb.jpg
+    full: /assets/images/15birds-puzzle/screenshot2-full.jpg
+  - thumb: /assets/images/15birds-puzzle/screenshot3-thumb.jpg
+    full: /assets/images/15birds-puzzle/screenshot3-full.jpg
+  - thumb: /assets/images/15birds-puzzle/screenshot4-thumb.jpg
+    full: /assets/images/15birds-puzzle/screenshot4-full.jpg
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.birds15"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/programs/15birds-puzzle/privacy-policy"
+terms_conditions_link: "/programs/15birds-puzzle/terms-conditions"
 ---
 
 ## Описание игры

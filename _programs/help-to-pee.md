@@ -9,8 +9,8 @@ screenshots:
   - thumb: /assets/images/help-to-pee/screenshot1-thumb.png
     full: /assets/images/help-to-pee/screenshot1-full.png
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.piss"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/programs/help-to-pee/privacy-policy"
+terms_conditions_link: "/programs/help-to-pee/terms-conditions"
 ---
 
 ## Описание игры

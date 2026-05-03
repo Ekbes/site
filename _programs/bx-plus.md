@@ -2,7 +2,7 @@
 layout: program
 title: "BX+"
 category: "radio"
-image: "bx-plus/bx_icon.png"
+image: "bx-plus/icon.png"
 slug: bx-plus
 banner: /assets/images/fly-and-candy/banner.jpg
 screenshots:
@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
     full: /assets/images/fly-and-candy/screenshot4-full.png
 download_link: "/download/bx_setup.exe"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/programs/bx-plus/privacy-policy"
+terms_conditions_link: "/programs/bx-plus/terms-conditions"
 ---
 
 ## Описание программы

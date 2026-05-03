@@ -4,19 +4,19 @@ title: "Wartank Commander"
 category: "games"
 image: "wartankcommander/icon.png"
 slug: wartankcommander
-banner: /assets/images/fly-and-candy/banner.jpg
+banner: /assets/images/wartankcommander/banner.jpg
 screenshots:
-  - thumb: /assets/images/fly-and-candy/screenshot1-thumb.png
-    full: /assets/images/fly-and-candy/screenshot1-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot2-thumb.png
-    full: /assets/images/fly-and-candy/screenshot2-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot3-thumb.png
-    full: /assets/images/fly-and-candy/screenshot3-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
-    full: /assets/images/fly-and-candy/screenshot4-full.png
+  - thumb: /assets/images/wartankcommander/screenshot1-thumb.png
+    full: /assets/images/wartankcommander/screenshot1-full.png
+  - thumb: /assets/images/wartankcommander/screenshot2-thumb.png
+    full: /assets/images/wartankcommander/screenshot2-full.png
+  - thumb: /assets/images/wartankcommander/screenshot3-thumb.png
+    full: /assets/images/wartankcommander/screenshot3-full.png
+  - thumb: /assets/images/wartankcommander/screenshot4-thumb.png
+    full: /assets/images/wartankcommander/screenshot4-full.png
 download_link: "#"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/programs/wartankcommander/privacy-policy"
+terms_conditions_link: "/programs/wartankcommander/terms-conditions"
 ---
 
 ## Описание игры

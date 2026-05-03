@@ -6,17 +6,17 @@ image: "birdsong/icon.png"
 slug: birdsong
 banner: /assets/images/fly-and-candy/banner.jpg
 screenshots:
-  - thumb: /assets/images/fly-and-candy/screenshot1-thumb.png
-    full: /assets/images/fly-and-candy/screenshot1-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot2-thumb.png
-    full: /assets/images/fly-and-candy/screenshot2-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot3-thumb.png
-    full: /assets/images/fly-and-candy/screenshot3-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
-    full: /assets/images/fly-and-candy/screenshot4-full.png
+  - thumb: /assets/images/fly-and-candy/screenshot1-thumb.jpg
+    full: /assets/images/fly-and-candy/screenshot1-full.jpg
+  - thumb: /assets/images/fly-and-candy/screenshot2-thumb.jpg
+    full: /assets/images/fly-and-candy/screenshot2-full.jpg
+  - thumb: /assets/images/fly-and-candy/screenshot3-thumb.jpg
+    full: /assets/images/fly-and-candy/screenshot3-full.jpg
+  - thumb: /assets/images/fly-and-candy/screenshot4-thumb.jpg
+    full: /assets/images/fly-and-candy/screenshot4-full.jpg
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.birdsong"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/programs/birdsong/privacy-policy"
+terms_conditions_link: "/programs/birdsong/terms-conditions"
 ---
 
 ## Описание игры

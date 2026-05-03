@@ -2,7 +2,7 @@
 layout: program
 title: "PhUtils"
 category: "radio"
-image: "uncnown-10.png"
+image: "uncnown.png"
 slug: phutils
 banner: /assets/images/fly-and-candy/banner.jpg
 screenshots:
@@ -14,9 +14,9 @@ screenshots:
     full: /assets/images/fly-and-candy/screenshot3-full.png
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
     full: /assets/images/fly-and-candy/screenshot4-full.png
-download_link: "#"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+download_link: "/download/phUtils_setup.exe"
+privacy_policy_link: "/programs/phutils/privacy-policy"
+terms_conditions_link: "/programs/phutils/terms-conditions"
 ---
 
 ## Описание программы

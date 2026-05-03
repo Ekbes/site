@@ -2,21 +2,19 @@
 layout: program
 title: "HelpToSleep"
 category: "kids"
-image: "help-to-sleep/icon512.png"
+image: "help-to-sleep/icon.png"
 slug: help-to-sleep
-banner: /assets/images/fly-and-candy/banner.jpg
+banner: /assets/images/help-to-sleep/banner.jpg
 screenshots:
-  - thumb: /assets/images/fly-and-candy/screenshot1-thumb.png
-    full: /assets/images/fly-and-candy/screenshot1-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot2-thumb.png
-    full: /assets/images/fly-and-candy/screenshot2-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot3-thumb.png
-    full: /assets/images/fly-and-candy/screenshot3-full.png
-  - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
-    full: /assets/images/fly-and-candy/screenshot4-full.png
+  - thumb: /assets/images/help-to-sleep/screenshot1-thumb.png
+    full: /assets/images/help-to-sleep/screenshot1-full.png
+  - thumb: /assets/images/help-to-sleep/screenshot2-thumb.png
+    full: /assets/images/help-to-sleep/screenshot2-full.png
+  - thumb: /assets/images/help-to-sleep/screenshot3-thumb.png
+    full: /assets/images/help-to-sleep/screenshot3-full.png
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.sleep"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/programs/help-to-sleep/privacy-policy"
+terms_conditions_link: "/programs/help-to-sleep/terms-conditions"
 ---
 
 ## Описание игры

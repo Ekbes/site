@@ -1,5 +1,5 @@
 title: "Ekbes"
-description: "Сайт с программами и заметками"
+description: "Цифровая обработка сигналов, программирование, игры, утилиты и другие проекты и заметки. Сайт с программами и заметками"
 baseurl: ""
 url: "http://ekbes.ru"
 
@@ -11,7 +11,7 @@ collections:
 # Добавим настройки для автора
 author:
   name: "Дмитрий Горбатовский"
-  email: "example@ekbes.ru"
+  email: "ekbes@rambler.ru"
   
 # Настройки для сборки
 markdown: kramdown
