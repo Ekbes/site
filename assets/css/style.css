@@ -1303,3 +1303,60 @@ img.ekb-article,
 .documentation-links a:last-child {
     margin-right: 0;
 }
+
+/* === Стилизация блоков кода (pre и code) === */
+pre {
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+    background-color: #f6f8fa;
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    padding: 16px;
+    font-size: 85%;
+    line-height: 1.45;
+    color: #24292e;
+    position: relative; /* для кнопки копирования */
+    margin: 1em 0;
+}
+
+pre code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    background: transparent;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* Стили для подсветки синтаксиса (Rouge) – базовая тема */
+.highlight pre { background-color: #f6f8fa; }
+.highlight .hll { background-color: #f6f8fa; }
+.highlight .c { color: #6a737d; font-style: italic; } /* Comment */
+.highlight .k { color: #d73a49; font-weight: bold; } /* Keyword */
+.highlight .s { color: #032f62; } /* String */
+.highlight .o { color: #005cc5; } /* Operator */
+.highlight .p { color: #24292e; } /* Punctuation */
+.highlight .nb { color: #005cc5; } /* Name.Builtin */
+.highlight .nv { color: #e36209; } /* Variable */
+/* Другие типы можно добавить по вкусу */
+
+/* Кнопка копирования */
+.copy-code-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #f6f8fa;
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    color: #24292e;
+    transition: background 0.2s;
+    line-height: 1;
+}
+.copy-code-btn:hover {
+    background: #e1e4e8;
+}

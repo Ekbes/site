@@ -1646,3 +1646,55 @@ jQuery(function ($) {
         }
     });
 });
+
+/* Добавление кнопки копирования ко всем блокам кода */
+jQuery(function($) {
+    "use strict";
+
+    // Функция для создания кнопки копирования
+    function addCopyButton(pre) {
+        var btn = $('<button class="copy-code-btn">Copy</button>');
+        btn.on('click', function(e) {
+            e.preventDefault();
+            var code = pre.find('code').text() || pre.text();
+            var originalText = 'Copy';
+            var successText = 'Copied!';
+
+            // Используем Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code).then(function() {
+                    btn.text(successText);
+                    setTimeout(function() { btn.text(originalText); }, 2000);
+                }).catch(function() {
+                    fallbackCopy(code, btn, originalText, successText);
+                });
+            } else {
+                fallbackCopy(code, btn, originalText, successText);
+            }
+        });
+        pre.css('position', 'relative'); // на всякий случай
+        pre.append(btn);
+    }
+
+    // Запасной вариант копирования (для старых браузеров)
+    function fallbackCopy(text, btn, originalText, successText) {
+        var textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed'; // избегаем прокрутки
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            btn.text(successText);
+            setTimeout(function() { btn.text(originalText); }, 2000);
+        } catch (err) {
+            btn.text('Error');
+        }
+        document.body.removeChild(textArea);
+    }
+
+    // Применяем к каждому блоку <pre> в статьях, заметках и других контентных областях
+    $('.ekb-postcontent pre, .ekb-content pre').each(function() {
+        addCopyButton($(this));
+    });
+});
