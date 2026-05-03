@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/15birds-puzzle/screenshot4-thumb.jpg
     full: /assets/images/15birds-puzzle/screenshot4-full.jpg
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.birds15"
-privacy_policy_link: "/programs/15birds-puzzle/privacy-policy"
-terms_conditions_link: "/programs/15birds-puzzle/terms-conditions"
+privacy_policy_link: "/my_programms/15birds-puzzle/privacy-policy"
+terms_conditions_link: "/my_programms/15birds-puzzle/terms-conditions"
 ---
 
 ## Описание игры
