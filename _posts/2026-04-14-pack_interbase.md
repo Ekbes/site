@@ -9,9 +9,8 @@ categories: [разное]
 
 Для сжатия БД нужно сделать бэкап базы командой
 ```shell
-gbak -b -v CONSOLIDATE.GDB backup.gdb -user SYSDBA -password masterkey
+gbak -b -v DataBase.gdb backup.gdb -user USER_NAME -password PASSWORD
 ```
 И восстановить её обратно, уже без мусора
 ```shell
-gbak -c -v backup.gdb CONSOLIDATE2.gdb -user SYSDBA -password masterkey
-```
+gbak -c -v backup.gdb DataBase.gdb -user USER_NAME -password PASSWORD
