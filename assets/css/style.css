@@ -952,7 +952,9 @@ img.ekb-article,
     }
     
     .home-cards-row {
-        gap: 20px;
+        gap: 35px;
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
 }
 
