@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
     full: /assets/images/fly-and-candy/screenshot4-full.png
 download_link: "#"
-privacy_policy_link: "/programs/tcp-loger/privacy-policy"
-terms_conditions_link: "/programs/tcp-loger/terms-conditions"
+privacy_policy_link: "/my_programms/tcp-loger/privacy-policy"
+terms_conditions_link: "/my_programms/tcp-loger/terms-conditions"
 ---
 
 ## Описание программы

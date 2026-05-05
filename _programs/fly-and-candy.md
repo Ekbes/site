@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
     full: /assets/images/fly-and-candy/screenshot4-full.png
 download_link: "#"
-privacy_policy_link: "/programs/fly-and-candy/privacy-policy"
-terms_conditions_link: "/programs/fly-and-candy/terms-conditions"
+privacy_policy_link: "/my_programms/fly-and-candy/privacy-policy"
+terms_conditions_link: "/my_programms/fly-and-candy/terms-conditions"
 ---
 
 ## Описание игры

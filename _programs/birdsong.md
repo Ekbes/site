@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.jpg
     full: /assets/images/fly-and-candy/screenshot4-full.jpg
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.birdsong"
-privacy_policy_link: "/programs/birdsong/privacy-policy"
-terms_conditions_link: "/programs/birdsong/terms-conditions"
+privacy_policy_link: "/my_programms/birdsong/privacy-policy"
+terms_conditions_link: "/my_programms/birdsong/terms-conditions"
 ---
 
 ## Описание игры

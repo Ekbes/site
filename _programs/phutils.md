@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
     full: /assets/images/fly-and-candy/screenshot4-full.png
 download_link: "/download/phUtils_setup.exe"
-privacy_policy_link: "/programs/phutils/privacy-policy"
-terms_conditions_link: "/programs/phutils/terms-conditions"
+privacy_policy_link: "/my_programms/phutils/privacy-policy"
+terms_conditions_link: "/my_programms/phutils/terms-conditions"
 ---
 
 ## Описание программы

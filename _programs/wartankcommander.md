@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/wartankcommander/screenshot4-thumb.png
     full: /assets/images/wartankcommander/screenshot4-full.png
 download_link: "#"
-privacy_policy_link: "/programs/wartankcommander/privacy-policy"
-terms_conditions_link: "/programs/wartankcommander/terms-conditions"
+privacy_policy_link: "/my_programms/wartankcommander/privacy-policy"
+terms_conditions_link: "/my_programms/wartankcommander/terms-conditions"
 ---
 
 ## Описание игры

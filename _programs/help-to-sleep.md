@@ -13,8 +13,8 @@ screenshots:
   - thumb: /assets/images/help-to-sleep/screenshot3-thumb.png
     full: /assets/images/help-to-sleep/screenshot3-full.png
 download_link: "https://play.google.com/store/apps/details?id=ru.ekbes.sleep"
-privacy_policy_link: "/programs/help-to-sleep/privacy-policy"
-terms_conditions_link: "/programs/help-to-sleep/terms-conditions"
+privacy_policy_link: "/my_programms/help-to-sleep/privacy-policy"
+terms_conditions_link: "/my_programms/help-to-sleep/terms-conditions"
 ---
 
 ## Описание игры

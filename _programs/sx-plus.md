@@ -15,8 +15,8 @@ screenshots:
   - thumb: /assets/images/fly-and-candy/screenshot4-thumb.png
     full: /assets/images/fly-and-candy/screenshot4-full.png
 download_link: "/download/sx_setup.exe"
-privacy_policy_link: "/programs/sx-plus/privacy-policy"
-terms_conditions_link: "/programs/sx-plus/terms-conditions"
+privacy_policy_link: "/my_programms/sx-plus/privacy-policy"
+terms_conditions_link: "/my_programms/sx-plus/terms-conditions"
 ---
 
 ## Описание программы
