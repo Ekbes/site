@@ -10,6 +10,8 @@ screenshots:
     full: /assets/images/live-control/screenshot1-full.png
   - thumb: /assets/images/live-control/screenshot2-thumb.png
     full: /assets/images/live-control/screenshot2-full.png
+  - thumb: /assets/images/live-control/screenshot3-thumb.png
+    full: /assets/images/live-control/screenshot3-full.gif
 download_link: "/download/LiveControl_setup.exe"
 privacy_policy_link: "/my_programms/live-control/privacy-policy"
 terms_conditions_link: "/my_programms/live-control/terms-conditions"
