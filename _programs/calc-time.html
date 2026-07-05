@@ -1,0 +1,656 @@
+---
+title: "Калькулятор времени"
+slug: "calc-time"
+category: "other"
+image: "uncnown.png"
+---
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        padding: 30px;
+        max-width: 600px;
+        width: 100%;
+    }
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 24px;
+    }
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+    .params-section {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-left: 4px solid #f7971e;
+        position: relative;
+    }
+    .params-section h2 {
+        color: #495057;
+        font-size: 16px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .params-section h2:before {
+        content: "⚙️";
+        margin-right: 8px;
+    }
+    .save-indicator {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 12px;
+        color: #28a745;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .save-indicator.show {
+        opacity: 1;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    .form-row .form-group {
+        flex: 1;
+        margin-bottom: 0;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .params-section label {
+        color: #666;
+        font-size: 13px;
+    }
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .params-section input, .params-section select {
+        background: white;
+        border-color: #e9ecef;
+        font-size: 13px;
+    }
+    textarea {
+        resize: vertical;
+        min-height: 60px;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+    }
+    .time-input {
+        border-color: #f7971e;
+        background: #fffbf0;
+    }
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #f7971e;
+    }
+    .btn {
+        background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: transform 0.2s;
+        margin-top: 10px;
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+    .btn:active {
+        transform: translateY(0);
+    }
+    .btn-secondary {
+        background: #6c757d;
+        margin-top: 5px;
+    }
+    .result {
+        margin-top: 25px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+        display: none;
+    }
+    .result h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+    .result-item {
+        background: white;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        border: 1px solid #e9ecef;
+    }
+    .result-item:last-child {
+        margin-bottom: 0;
+    }
+    .result-label {
+        font-size: 12px;
+        color: #6c757d;
+        font-weight: 500;
+        margin-bottom: 3px;
+    }
+    .result-value {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        word-break: break-all;
+        font-family: 'Courier New', monospace;
+    }
+    .result-value .highlight {
+        color: #f7971e;
+    }
+    .error {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+    }
+    .nav-links a {
+        color: #f7971e;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: 500;
+    }
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+    .button-row {
+        display: flex;
+        gap: 10px;
+    }
+    .button-row .btn {
+        flex: 1;
+        margin-top: 0;
+    }
+    .format-selector {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .format-btn {
+        flex: 1;
+        min-width: 80px;
+        padding: 8px;
+        background: #e9ecef;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s;
+        font-size: 12px;
+    }
+    .format-btn.active {
+        background: #f8f9fa;
+        border-color: #f7971e;
+        color: #f7971e;
+        font-weight: 500;
+    }
+    .timezone-info {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+        padding: 8px;
+        background: #f8f9fa;
+        border-radius: 4px;
+    }
+    .copy-btn {
+        float: right;
+        background: none;
+        border: none;
+        color: #6c757d;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        transition: all 0.2s;
+    }
+    .copy-btn:hover {
+        background: #e9ecef;
+        color: #333;
+    }
+    .copy-btn.copied {
+        color: #28a745;
+    }
+</style>
+
+<br><br><br>
+<div class="container">
+    <h1>⏰ Калькулятор времени</h1>
+    <div class="subtitle">Конвертация между различными форматами времени</div>
+
+    <div class="params-section">
+        <h2>Настройки</h2>
+        <div class="save-indicator" id="saveIndicator">✓ Сохранено</div>
+
+        <div class="form-group">
+            <label>Входной формат:</label>
+            <div class="format-selector">
+                <div class="format-btn active" data-format="datetime">Дата/Время</div>
+                <div class="format-btn" data-format="string">Строка</div>
+                <div class="format-btn" data-format="unix_seconds">Unix (сек)</div>
+                <div class="format-btn" data-format="unix_milliseconds">Unix (мс)</div>
+                <div class="format-btn" data-format="windows">Windows (100 нс)</div>
+                <div class="format-btn" data-format="double">Double</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Часовой пояс:</label>
+            <select id="timezone">
+                <option value="local">Локальное время</option>
+                <option value="UTC">UTC</option>
+                <option value="-12:00">UTC-12:00</option>
+                <option value="-11:00">UTC-11:00</option>
+                <option value="-10:00">UTC-10:00</option>
+                <option value="-09:00">UTC-09:00</option>
+                <option value="-08:00">UTC-08:00</option>
+                <option value="-07:00">UTC-07:00</option>
+                <option value="-06:00">UTC-06:00</option>
+                <option value="-05:00">UTC-05:00</option>
+                <option value="-04:00">UTC-04:00</option>
+                <option value="-03:00">UTC-03:00</option>
+                <option value="-02:00">UTC-02:00</option>
+                <option value="-01:00">UTC-01:00</option>
+                <option value="+00:00" selected>UTC+00:00</option>
+                <option value="+01:00">UTC+01:00</option>
+                <option value="+02:00">UTC+02:00</option>
+                <option value="+03:00">UTC+03:00</option>
+                <option value="+04:00">UTC+04:00</option>
+                <option value="+05:00">UTC+05:00</option>
+                <option value="+06:00">UTC+06:00</option>
+                <option value="+07:00">UTC+07:00</option>
+                <option value="+08:00">UTC+08:00</option>
+                <option value="+09:00">UTC+09:00</option>
+                <option value="+10:00">UTC+10:00</option>
+                <option value="+11:00">UTC+11:00</option>
+                <option value="+12:00">UTC+12:00</option>
+            </select>
+        </div>
+
+        <div class="button-row">
+            <button type="button" class="btn btn-secondary" id="saveParams">Сохранить настройки</button>
+            <button type="button" class="btn btn-secondary" id="resetParams">Сбросить</button>
+        </div>
+    </div>
+
+    <form id="converterForm">
+        <div class="form-group">
+            <label for="inputValue">Введите значение времени:</label>
+            <textarea id="inputValue" class="time-input" placeholder="Введите время в выбранном формате...">2024-01-15 14:30:45</textarea>
+            <div class="error" id="inputError"></div>
+            <div class="timezone-info" id="timezoneInfo">Время будет преобразовано с учётом выбранного часового пояса</div>
+        </div>
+
+        <button type="submit" class="btn">Конвертировать</button>
+    </form>
+
+    <div class="result" id="result">
+        <h3>Результаты конвертации:</h3>
+        <div id="resultContent"></div>
+    </div>
+</div>
+
+<script>
+    // Ключи для localStorage
+    const STORAGE_KEYS = {
+        INPUT_FORMAT: 'time_input_format',
+        TIMEZONE: 'time_timezone',
+        INPUT_VALUE: 'time_input_value'
+    };
+
+    // Параметры по умолчанию
+    const DEFAULT_PARAMS = {
+        inputFormat: 'datetime',
+        timezone: '+00:00',
+        inputValue: '2024-01-15 14:30:45'
+    };
+
+    let currentFormat = DEFAULT_PARAMS.inputFormat;
+
+    // Загрузка параметров из localStorage
+    function loadParams() {
+        const params = { ...DEFAULT_PARAMS };
+
+        const savedFormat = localStorage.getItem(STORAGE_KEYS.INPUT_FORMAT);
+        if (savedFormat !== null) {
+            params.inputFormat = savedFormat;
+        }
+
+        const savedTimezone = localStorage.getItem(STORAGE_KEYS.TIMEZONE);
+        if (savedTimezone !== null) {
+            params.timezone = savedTimezone;
+        }
+
+        const savedValue = localStorage.getItem(STORAGE_KEYS.INPUT_VALUE);
+        if (savedValue !== null) {
+            params.inputValue = savedValue;
+        }
+
+        return params;
+    }
+
+    // Сохранение параметров в localStorage
+    function saveParams() {
+        const params = {
+            inputFormat: currentFormat,
+            timezone: document.getElementById('timezone').value,
+            inputValue: document.getElementById('inputValue').value
+        };
+
+        for (const key in params) {
+            const storageKey = `time_${key}`;
+            localStorage.setItem(storageKey, params[key].toString());
+        }
+
+        // Показать индикатор сохранения
+        const indicator = document.getElementById('saveIndicator');
+        indicator.classList.add('show');
+        setTimeout(() => {
+            indicator.classList.remove('show');
+        }, 2000);
+    }
+
+    // Установка параметров по умолчанию
+    function resetToDefault() {
+        currentFormat = DEFAULT_PARAMS.inputFormat;
+        document.getElementById('timezone').value = DEFAULT_PARAMS.timezone;
+        document.getElementById('inputValue').value = DEFAULT_PARAMS.inputValue;
+        updateFormatUI();
+        saveParams();
+    }
+
+    // Обновление UI формата
+    function updateFormatUI() {
+        document.querySelectorAll('.format-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.format === currentFormat);
+        });
+
+        // Обновляем placeholder
+        const textarea = document.getElementById('inputValue');
+        const placeholders = {
+            'datetime': '2024-01-15 14:30:45',
+            'string': '2024-01-15T14:30:45Z',
+            'unix_seconds': '1705329045',
+            'unix_milliseconds': '1705329045000',
+            'windows': '133000000000000000',
+            'double': '44600.6046875'
+        };
+        textarea.placeholder = placeholders[currentFormat] || 'Введите значение...';
+    }
+
+    // Заполнение формы сохраненными параметрами
+    function populateForm() {
+        const params = loadParams();
+
+        currentFormat = params.inputFormat;
+        document.getElementById('timezone').value = params.timezone;
+        document.getElementById('inputValue').value = params.inputValue;
+
+        updateFormatUI();
+    }
+
+    // Функции конвертации времени
+    function parseTime(input, format, timezone) {
+        let date = null;
+
+        try {
+            switch(format) {
+                case 'datetime':
+                    // Парсим дату/время в формате YYYY-MM-DD HH:MM:SS
+                    const parts = input.trim().match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})/);
+                    if (parts) {
+                        date = new Date(
+                            parseInt(parts[1]),
+                            parseInt(parts[2]) - 1,
+                            parseInt(parts[3]),
+                            parseInt(parts[4]),
+                            parseInt(parts[5]),
+                            parseInt(parts[6])
+                        );
+                    }
+                    break;
+
+                case 'string':
+                    // Парсим ISO строку
+                    date = new Date(input);
+                    break;
+
+                case 'unix_seconds':
+                    date = new Date(parseFloat(input) * 1000);
+                    break;
+
+                case 'unix_milliseconds':
+                    date = new Date(parseFloat(input));
+                    break;
+
+                case 'windows':
+                    // Windows FILETIME: 100-наносекундные интервалы с 1601-01-01
+                    const windowsEpoch = new Date(1601, 0, 1);
+                    const ms = parseFloat(input) / 10000; // 100 нс -> мс
+                    date = new Date(windowsEpoch.getTime() + ms);
+                    break;
+
+                case 'double':
+                    // Excel дата: дни с 1900-01-01
+                    const excelEpoch = new Date(1899, 11, 30);
+                    const days = parseFloat(input);
+                    date = new Date(excelEpoch.getTime() + days * 86400000);
+                    break;
+
+                default:
+                    throw new Error('Неизвестный формат');
+            }
+
+            if (!date || isNaN(date.getTime())) {
+                throw new Error('Неверный формат времени');
+            }
+
+            // Применяем часовой пояс
+            if (timezone !== 'local' && timezone !== 'UTC') {
+                const offset = parseFloat(timezone);
+                date = new Date(date.getTime() - offset * 3600000);
+            } else if (timezone === 'UTC') {
+                date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+            }
+
+            return date;
+
+        } catch (error) {
+            throw new Error('Ошибка парсинга: ' + error.message);
+        }
+    }
+
+    function formatTime(date, format) {
+        if (isNaN(date.getTime())) {
+            return 'Invalid Date';
+        }
+
+        const pad = (n) => String(n).padStart(2, '0');
+
+        switch(format) {
+            case 'datetime':
+                return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+
+            case 'string':
+                return date.toISOString();
+
+            case 'unix_seconds':
+                return Math.floor(date.getTime() / 1000);
+
+            case 'unix_milliseconds':
+                return date.getTime();
+
+            case 'windows':
+                const windowsEpoch = new Date(1601, 0, 1);
+                const ms = date.getTime() - windowsEpoch.getTime();
+                return Math.floor(ms * 10000);
+
+            case 'double':
+                const excelEpoch = new Date(1899, 11, 30);
+                const days = (date.getTime() - excelEpoch.getTime()) / 86400000;
+                return days;
+
+            default:
+                return date.toString();
+        }
+    }
+
+    // Обработчики для кнопок форматов
+    document.querySelectorAll('.format-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            currentFormat = this.dataset.format;
+            updateFormatUI();
+            saveParams();
+        });
+    });
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function() {
+        populateForm();
+
+        document.getElementById('saveParams').addEventListener('click', saveParams);
+        document.getElementById('resetParams').addEventListener('click', resetToDefault);
+
+        // Автосохранение
+        document.getElementById('timezone').addEventListener('change', saveParams);
+        document.getElementById('inputValue').addEventListener('change', saveParams);
+
+        // Обновление информации о часовом поясе
+        document.getElementById('timezone').addEventListener('change', function() {
+            const info = document.getElementById('timezoneInfo');
+            const tz = this.value;
+            if (tz === 'local') {
+                info.textContent = 'Используется локальное время системы';
+            } else if (tz === 'UTC') {
+                info.textContent = 'Используется UTC (без смещения)';
+            } else {
+                info.textContent = `Используется смещение ${tz} от UTC`;
+            }
+        });
+    });
+
+    // Обработчик формы
+    document.getElementById('converterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const inputValue = document.getElementById('inputValue').value;
+        const timezone = document.getElementById('timezone').value;
+        const errorElement = document.getElementById('inputError');
+        const resultContainer = document.getElementById('result');
+        const resultContent = document.getElementById('resultContent');
+
+        errorElement.style.display = 'none';
+
+        try {
+            // Парсим входное время
+            const date = parseTime(inputValue, currentFormat, timezone);
+
+            // Формируем результат
+            const formats = [
+                { label: 'Дата/Время', key: 'datetime' },
+                { label: 'ISO строка', key: 'string' },
+                { label: 'Unix (секунды)', key: 'unix_seconds' },
+                { label: 'Unix (миллисекунды)', key: 'unix_milliseconds' },
+                { label: 'Windows FILETIME', key: 'windows' },
+                { label: 'Double (Excel)', key: 'double' }
+            ];
+
+            let html = '';
+            formats.forEach(fmt => {
+                const value = formatTime(date, fmt.key);
+                const displayValue = typeof value === 'number' ? value : value;
+                html += `
+                        <div class="result-item">
+                            <span class="copy-btn" onclick="copyToClipboard(this, '${String(displayValue).replace(/'/g, "\\'")}')">📋 Копировать</span>
+                            <div class="result-label">${fmt.label}</div>
+                            <div class="result-value">${displayValue}</div>
+                        </div>
+                    `;
+            });
+
+            // Добавляем информацию о часовом поясе
+            const tzInfo = timezone === 'local' ? 'Локальное' :
+                timezone === 'UTC' ? 'UTC' :
+                    `UTC${timezone}`;
+            html += `
+                    <div style="margin-top: 15px; padding: 10px; background: #e9ecef; border-radius: 6px; font-size: 13px; color: #6c757d;">
+                        ⏱ Часовой пояс: ${tzInfo}
+                    </div>
+                `;
+
+            resultContent.innerHTML = html;
+            resultContainer.style.display = 'block';
+
+        } catch (error) {
+            errorElement.textContent = error.message;
+            errorElement.style.display = 'block';
+            resultContainer.style.display = 'none';
+        }
+    });
+
+    // Функция копирования в буфер обмена
+    function copyToClipboard(btn, text) {
+        navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = '✓ Скопировано!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = '📋 Копировать';
+                btn.classList.remove('copied');
+            }, 2000);
+        }).catch(() => {
+            // Fallback
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            btn.textContent = '✓ Скопировано!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = '📋 Копировать';
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    }
+
+    // Делаем функцию глобальной для использования в onclick
+    window.copyToClipboard = copyToClipboard;
+</script>

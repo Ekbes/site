@@ -49,4 +49,4 @@ program_categories:
     programs: ["radio-signals-database", "rf-to-if", "if-to-rf", "frequency-calc", "phviewer2", "phutils", "sx-plus", "bx-plus"]
   other:
     name: "Разное"
-    programs: ["monodiets", "globus", "live-control", "qt-plus-sql", "sas2osm", "tcp-loger", "chrome-history"]
+    programs: ["monodiets", "globus", "live-control", "calc-time", "qt-plus-sql", "sas2osm", "tcp-loger", "chrome-history"]
